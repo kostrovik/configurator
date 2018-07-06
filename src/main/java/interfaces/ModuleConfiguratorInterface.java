@@ -8,6 +8,6 @@ import java.util.Map;
  * date:    05/07/2018
  * github:  https://github.com/kostrovik/configurator
  */
-public interface ModuleConfigurator {
-    Map getConfig();
+public interface ModuleConfiguratorInterface {
+    Map<String, Object> getConfig();
 }
