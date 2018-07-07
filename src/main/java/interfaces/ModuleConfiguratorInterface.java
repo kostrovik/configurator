@@ -10,4 +10,8 @@ import java.util.Map;
  */
 public interface ModuleConfiguratorInterface {
     Map<String, Object> getConfig();
+
+    Map<String, Object> getModuleMenu();
+
+    Map<String, String> getViews();
 }

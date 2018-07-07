@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * project: configurator
@@ -35,8 +36,19 @@ public class ModuleConfigurator implements ModuleConfiguratorInterface {
         this.config = parseConfig(configPath);
     }
 
+    @Override
     public Map<String, Object> getConfig() {
         return config;
+    }
+
+    @Override
+    public Map<String, Object> getModuleMenu() {
+        return new ConcurrentHashMap<>();
+    }
+
+    @Override
+    public Map<String, String> getViews() {
+        return new ConcurrentHashMap<>();
     }
 
     private Map<String, Object> parseConfig(Properties customSettings) {
