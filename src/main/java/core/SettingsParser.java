@@ -40,6 +40,24 @@ public class SettingsParser {
         return Arrays.asList(key.split("\\."));
     }
 
+    /**
+     * Создает вложенное дерево для ключа из настроек.
+     * Если ключа еще не создано в дереве то создает ветку на полную глубину и кладет значение в самый низ.
+     * property: [
+     * sub_property: [
+     * sub_level_property: value
+     * ]
+     * ];
+     * Если ключ до определенной вложенности уже существует то добавит новое значение в список.
+     * property: [
+     * sub_property: [
+     * sub_level_property: value,
+     * sub_level_property_1: value_1
+     * ]
+     * ];
+     *
+     * @param key the key
+     */
     private void prepareProperty(String key) {
         String value = properties.getProperty(key);
         List<String> parsedKey = parseKey(key);
@@ -51,6 +69,12 @@ public class SettingsParser {
         }
     }
 
+    /**
+     * Ищет ключ и добавляет в дерево новое значение на нужной глубине.
+     *
+     * @param keys  the keys
+     * @param value the value
+     */
     private void findAndSetKey(List<String> keys, String value) {
         List<String> mapKeys = new ArrayList<>(keys);
         Object configValue = config.get(mapKeys.get(0));
