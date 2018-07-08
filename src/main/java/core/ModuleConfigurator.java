@@ -4,10 +4,8 @@ import interfaces.ModuleConfiguratorInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,6 +49,14 @@ public class ModuleConfigurator implements ModuleConfiguratorInterface {
         return new ConcurrentHashMap<>();
     }
 
+    /**
+     * Создает конфигурацию на основе настроект по умолчанию и переданных пользовательских настроек.
+     * Из прользовательских настроек будут взяты значения только тех ключей которые есть в настройках по умолчанию
+     * для модуля.
+     *
+     * @param customSettings the custom settings
+     * @return the map
+     */
     private Map<String, Object> parseConfig(Properties customSettings) {
         Properties result = getDefaultConfig();
 
@@ -69,12 +75,17 @@ public class ModuleConfigurator implements ModuleConfiguratorInterface {
         return parseConfig(getCustomConfig(configPath));
     }
 
+    /**
+     * Получает настройки по умолчанию для модуля.
+     *
+     * @return the default config
+     */
     private Properties getDefaultConfig() {
         Properties result = new Properties();
 
         try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(defaultConfigFilePath)) {
             if (inputStream != null) {
-                result.load(inputStream);
+                result.load(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
             }
         } catch (FileNotFoundException error) {
             logger.error("Не найден файл конфигурации по умолчанию", error);
@@ -85,11 +96,17 @@ public class ModuleConfigurator implements ModuleConfiguratorInterface {
         return result;
     }
 
+    /**
+     * Получает настройки из пользовательского файла.
+     *
+     * @param configPath the config path
+     * @return the custom config
+     */
     private Properties getCustomConfig(String configPath) {
         Properties result = new Properties();
 
         try (FileInputStream inputStream = new FileInputStream(configPath)) {
-            result.load(inputStream);
+            result.load(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
         } catch (FileNotFoundException error) {
             logger.error(String.format("Не найден файл конфигурации: %s", configPath), error);
         } catch (IOException error) {
