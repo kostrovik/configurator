@@ -1,4 +1,4 @@
-package core;
+package com.github.kostrovik.configurator.core;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

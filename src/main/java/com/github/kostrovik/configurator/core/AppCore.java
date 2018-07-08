@@ -1,4 +1,4 @@
-package core;
+package com.github.kostrovik.configurator.core;
 
 /**
  * project: configurator

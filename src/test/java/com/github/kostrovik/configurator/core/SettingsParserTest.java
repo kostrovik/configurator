@@ -1,4 +1,4 @@
-package core;
+package com.github.kostrovik.configurator.core;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +21,8 @@ public class SettingsParserTest {
     void initProperties() {
         properties = new Properties();
         properties.setProperty("prop_single", "single_value");
-        properties.setProperty("property.module.view.builder_main", "core.views.MainBuilder");
-        properties.setProperty("property.module.menu.builder", "core.views.menu.MainBuilder");
+        properties.setProperty("property.module.view.builder_main", "com.github.kostrovik.configurator.core.views.MainBuilder");
+        properties.setProperty("property.module.menu.builder", "com.github.kostrovik.configurator.core.views.menu.MainBuilder");
     }
 
     @Test
@@ -39,8 +39,8 @@ public class SettingsParserTest {
         Map config = parser.getConfig();
 
         assertEquals("single_value", config.get("prop_single"));
-        assertEquals("core.views.MainBuilder", ((Map) ((Map) ((Map) config.get("property")).get("module")).get("view")).get("builder_main"));
-        assertEquals("core.views.menu.MainBuilder", ((Map) ((Map) ((Map) config.get("property")).get("module")).get("menu")).get("builder"));
+        assertEquals("com.github.kostrovik.configurator.core.views.MainBuilder", ((Map) ((Map) ((Map) config.get("property")).get("module")).get("view")).get("builder_main"));
+        assertEquals("com.github.kostrovik.configurator.core.views.menu.MainBuilder", ((Map) ((Map) ((Map) config.get("property")).get("module")).get("menu")).get("builder"));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class SettingsParserTest {
         SettingsParser parser = new SettingsParser(properties);
 
         assertEquals("single_value", parser.getConfigProperty("prop_single"));
-        assertEquals("core.views.MainBuilder", parser.getConfigProperty("builder_main"));
+        assertEquals("com.github.kostrovik.configurator.core.views.MainBuilder", parser.getConfigProperty("builder_main"));
     }
 
     @Test

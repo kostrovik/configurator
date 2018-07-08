@@ -1,4 +1,4 @@
-package interfaces;
+package com.github.kostrovik.configurator.interfaces;
 
 import java.util.Map;
 

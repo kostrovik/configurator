@@ -1,6 +1,6 @@
-package core;
+package com.github.kostrovik.configurator.core;
 
-import interfaces.ModuleConfiguratorInterface;
+import com.github.kostrovik.configurator.interfaces.ModuleConfiguratorInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
