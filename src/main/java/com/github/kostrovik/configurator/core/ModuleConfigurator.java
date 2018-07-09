@@ -18,8 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ModuleConfigurator implements ModuleConfiguratorInterface {
     private static Logger logger = LogManager.getLogger(ModuleConfigurator.class);
-    private static Map<String, Object> config;
-    private final static String defaultConfigFilePath = "configurations/module_config.properties";
+    private Map<String, Object> config;
+    private final String defaultConfigFilePath = "configurations/module_config.properties";
     private SettingsParser parser;
 
     public ModuleConfigurator() {
@@ -83,7 +83,7 @@ public class ModuleConfigurator implements ModuleConfiguratorInterface {
     private Properties getDefaultConfig() {
         Properties result = new Properties();
 
-        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(defaultConfigFilePath)) {
+        try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(getDefaultConfigFilePath())) {
             if (inputStream != null) {
                 result.load(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
             }
@@ -114,5 +114,9 @@ public class ModuleConfigurator implements ModuleConfiguratorInterface {
         }
 
         return result;
+    }
+
+    protected String getDefaultConfigFilePath() {
+        return defaultConfigFilePath;
     }
 }
